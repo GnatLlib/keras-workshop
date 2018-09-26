@@ -40,13 +40,11 @@ export class Header extends Component {
 
     }
 
-
-    handleClickOutside() {
+    toggleNav() {
         this.setState({
-            open: false,
-        });
+            open: !this.state.open,
+        })
     }
-
 
     logout(e) {
         e.preventDefault();
@@ -56,19 +54,17 @@ export class Header extends Component {
         });
     }
 
-    openNav() {
-        this.setState({
-            open: true,
-        });
-    }
-
     render() {
         return (
             <header>
-                <LeftNav open={this.state.open}>
+                <LeftNav open={this.state.open} 
+                containerClassName='sidebar'>
                     {
                         !this.props.isAuthenticated ?
                             <div>
+                                <MenuItem onClick={() => this.dispatchNewRoute('/home')}>
+                                    Home
+                                </MenuItem>
                                 <MenuItem onClick={() => this.dispatchNewRoute('/login')}>
                                     Login
                                 </MenuItem>
@@ -90,8 +86,8 @@ export class Header extends Component {
                     }
                 </LeftNav>
                 <AppBar
-                  title="React-Redux-Flask"
-                  onLeftIconButtonTouchTap={() => this.openNav()}
+                  title="Keras Model Builder"
+                  onLeftIconButtonTouchTap={() => this.toggleNav()}
                   iconElementRight={
                       <FlatButton label="Home" onClick={() => this.dispatchNewRoute('/')} />
                     }

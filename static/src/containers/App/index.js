@@ -26,9 +26,6 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
                     >
                         {this.props.children}
                     </div>
-                    <div>
-                        <Footer />
-                    </div>
                 </section>
             </MuiThemeProvider>
         );
