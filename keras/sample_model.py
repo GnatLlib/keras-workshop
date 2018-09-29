@@ -11,7 +11,7 @@ model.compile(loss=keras.losses.categorical_crossentropy,
               optimizer=keras.optimizers.SGD(lr=0.01, momentum=0.9, nesterov=True))
 
 model_json = model.to_json()
-model_file = open("test_model.json", "w")
+model_file = open("./export/test_model.json", "w")
 model_file.write(model_json)
 
-plot_model(model, to_file='model.png', show_shapes=True)
+plot_model(model, to_file='./export/model.png', show_shapes=True)
