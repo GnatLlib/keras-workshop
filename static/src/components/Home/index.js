@@ -1,9 +1,12 @@
 import React from 'react';
+import Dropzone from 'react-dropzone'
 
-export const Home = () =>
+export const Home = () => 
     <section>
         <div className="container text-center">
             <h1>Welcome to Keras Model Builder</h1>
-            <img src='https://s3.amazonaws.com/keras.io/img/keras-logo-2018-large-1200.png'/>
+            <Dropzone onDrop = {(files) => {console.log(files)}} className='upload-box'>
+                <p> Drag and drop your keras model or click to upload</p>
+            </Dropzone>
         </div>
     </section>
