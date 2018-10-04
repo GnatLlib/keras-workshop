@@ -1,7 +1,11 @@
 import React from 'react';
 import Dropzone from 'react-dropzone'
+import PropTypes from 'prop-types'
 
-export const Home = () => 
+export const Home = (props) => {
+
+    console.log(props.model)
+    return (
     <section>
         <div className="container text-center">
             <h1>Welcome to Keras Model Builder</h1>
@@ -10,3 +14,5 @@ export const Home = () =>
             </Dropzone>
         </div>
     </section>
+    )
+}
