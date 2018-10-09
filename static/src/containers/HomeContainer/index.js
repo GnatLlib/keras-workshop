@@ -21,7 +21,7 @@ class HomeContainer extends React.Component {
     render() {
         return (
             <section>
-                <Home model = {this.props.model}/>
+                <Home model = {this.props.model} onDrop = {this.props.uploadModel} />
             </section>
         )
     }
