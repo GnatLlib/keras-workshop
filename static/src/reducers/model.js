@@ -7,18 +7,13 @@ const initialState = {
 }
 export default createReducer(initialState, {
     [UPLOAD_MODEL]: (state, payload) => {
-        console.log('triggering');
-        const reader = new FileReader();
-        reader.onload = () => {
-            const modelText = reader.result;
-            console.log('loaded');
-            console.log(modelText);
-        }
         
-        reader.readAsBinaryString(payload.model[0]);
+        console.log('payload')
+        console.log(payload.model)
         return Object.assign({}, state, {
             model: payload.model,
         })
+        
     }
 
 });
