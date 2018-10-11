@@ -7,9 +7,7 @@ const initialState = {
 }
 export default createReducer(initialState, {
     [UPLOAD_MODEL]: (state, payload) => {
-        
-        console.log('payload')
-        console.log(payload.model)
+    
         return Object.assign({}, state, {
             model: payload.model,
         })

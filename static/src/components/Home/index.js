@@ -1,6 +1,10 @@
 import React from 'react';
-import Dropzone from 'react-dropzone'
-import PropTypes from 'prop-types'
+import Dropzone from 'react-dropzone';
+import PropTypes from 'prop-types';
+import Button from 'material-ui/FloatingActionButton';
+import AddIcon from 'material-ui/svg-icons/content/add';
+
+
 
 export const Home = (props) => {
     console.log(props)
@@ -9,7 +13,6 @@ export const Home = (props) => {
         const reader = new FileReader();
         reader.onload = () => {
             const modelText = reader.result;
-            console.log(modelText)
             props.onDrop(modelText)
         }
         
@@ -22,6 +25,13 @@ export const Home = (props) => {
             <Dropzone onDrop = {onDrop} className='upload-box'>
                 <p> Drag and drop your keras model or click to upload</p>
             </Dropzone>
+            <div className = 'create-button'>
+            <Button color="primary" aria-label="Add" className='create-button-icon'>
+                <AddIcon />
+            </Button>
+            
+            Click to create new model
+            </div>
         </div>
     </section>
     )
