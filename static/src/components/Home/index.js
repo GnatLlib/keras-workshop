@@ -2,6 +2,7 @@ import React from "react";
 import Dropzone from "react-dropzone";
 import Button from "material-ui/FloatingActionButton";
 import AddIcon from "material-ui/svg-icons/content/add";
+import ModelContainer from "../../containers/ModelContainer";
 
 export const Home = props => {
     console.log(props);
@@ -15,8 +16,9 @@ export const Home = props => {
 
         reader.readAsBinaryString(files[0]);
     };
-    return (
-        <section>
+
+    const uploadModel = () => {
+        return (
             <div className="container text-center">
                 <h1>Welcome to Keras Model Builder</h1>
                 <Dropzone onDrop={onDrop} className="upload-box">
@@ -33,6 +35,11 @@ export const Home = props => {
                     Click to create new model
                 </div>
             </div>
+        );
+    };
+    return (
+        <section>
+            {props.model.model ? <ModelContainer /> : uploadModel()}
         </section>
     );
 };
