@@ -120,7 +120,8 @@
     "yargs": "^6.5.0"
   },
   "dependencies": {
-    "react-dropzone": "^6.0.2"
+    "react-dropzone": "^6.0.2",
+    "react-grid-layout": "^0.16.6"
   },
   "husky": {
     "hooks": {
