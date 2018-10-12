@@ -1,7 +1,7 @@
 import React from "react";
 import Dropzone from "react-dropzone";
-import Button from "material-ui/FloatingActionButton";
-import AddIcon from "material-ui/svg-icons/content/add";
+import Button from "@material-ui/core/Button";
+import AddIcon from "@material-ui/icons/Add";
 import ModelContainer from "../../containers/ModelContainer";
 
 export const Home = props => {
@@ -26,6 +26,7 @@ export const Home = props => {
                 </Dropzone>
                 <div className="create-button">
                     <Button
+                        variant="fab"
                         color="primary"
                         aria-label="Add"
                         className="create-button-icon"

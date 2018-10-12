@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import RGL, { WidthProvider } from "react-grid-layout";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import Card from "material-ui/Card/Card";
-import CardContent from "material-ui/Card/CardText";
+import { LayerCard } from "../../components/LayerCard";
 
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -22,15 +21,34 @@ const mapDispatchToProps = dispatch => {
     mapDispatchToProps
 )
 export default class ModelContainer extends Component {
+    generateLayout = layers => {
+        return layers.map((layer, index) => {
+            return {
+                i: String(index),
+                x: 0,
+                y: index,
+                w: 1,
+                h: 4,
+                isResizable: false
+            };
+        });
+    };
+
+    renderLayerCards = layers => {
+        return layers.map((layer, index) => {
+            return (
+                <div key={index}>
+                    <LayerCard {...layer} />
+                </div>
+            );
+        });
+    };
     render() {
         const model = JSON.parse(this.props.model.model);
         console.log(model);
         // layout is an array of objects, see the demo for more complete usage
-        const layout = [
-            { i: "a", x: 0, y: 0, w: 1, h: 2, isResizable: false },
-            { i: "b", x: 1, y: 0, w: 1, h: 2, isResizable: false },
-            { i: "c", x: 4, y: 0, w: 1, h: 2, isResizable: false }
-        ];
+        const layout = this.generateLayout(model.config);
+        console.log(layout);
         return (
             <div className="model-grid-container">
                 <ReactGridLayout
@@ -40,23 +58,7 @@ export default class ModelContainer extends Component {
                     width={600}
                     layout={layout}
                 >
-                    <div key="a">
-                        <Card>
-                            <CardContent>
-                                {model.config[0].config.name}
-                            </CardContent>
-                        </Card>
-                    </div>
-                    <div key="b">
-                        <Card>
-                            <CardContent>Layer 2</CardContent>
-                        </Card>
-                    </div>
-                    <div key="c">
-                        <Card>
-                            <CardContent>Layer 3</CardContent>
-                        </Card>
-                    </div>
+                    {this.renderLayerCards(model.config)}
                 </ReactGridLayout>
             </div>
         );

@@ -1,20 +1,27 @@
-import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import AppBar from 'material-ui/AppBar';
-import LeftNav from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
-import FlatButton from 'material-ui/FlatButton';
-import Divider from 'material-ui/Divider';
+import React, { Component } from "react";
+import { browserHistory } from "react-router";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import AppBar from "@material-ui/core/AppBar";
+import Drawer from "@material-ui/core/Drawer";
+import MenuItem from "@material-ui/core/MenuItem";
+import FlatButton from "@material-ui/core/Button";
+import Divider from "@material-ui/core/Divider";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import Typography from "@material-ui/core/Typography";
+import { withStyles } from "@material-ui/core/styles";
+import classNames from "classnames";
 
-import * as actionCreators from '../../actions/auth';
+import * as actionCreators from "../../actions/auth";
 
+const drawerWidth = 240;
 function mapStateToProps(state) {
     return {
         token: state.auth.token,
         userName: state.auth.userName,
-        isAuthenticated: state.auth.isAuthenticated,
+        isAuthenticated: state.auth.isAuthenticated
     };
 }
 
@@ -22,83 +29,109 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(actionCreators, dispatch);
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+const styles = theme => ({
+    root: {
+        flexGrow: 0
+    },
+    appFrame: {
+        height: "100%",
+        zIndex: 1,
+        overflow: "hidden",
+        position: "relative",
+        display: "flex",
+        width: "100%"
+    },
+    appBar: {
+        width: `calc(100% - ${drawerWidth}px)`
+    },
+    "appBar-left": {
+        marginLeft: drawerWidth
+    },
+    "appBar-right": {
+        marginRight: drawerWidth
+    },
+    drawerPaper: {
+        position: "relative",
+        marginRight: "0",
+        width: drawerWidth
+    },
+    toolbar: theme.mixins.toolbar,
+    content: {
+        flexGrow: 1,
+        backgroundColor: theme.palette.background.default,
+        padding: theme.spacing.unit * 3
+    }
+});
+
+@connect(
+    mapStateToProps,
+    mapDispatchToProps
+)
 export class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: false,
+            open: false
         };
-
     }
 
     dispatchNewRoute(route) {
         browserHistory.push(route);
         this.setState({
-            open: false,
+            open: false
         });
-
     }
 
     toggleNav() {
         this.setState({
-            open: !this.state.open,
-        })
+            open: !this.state.open
+        });
     }
 
     logout(e) {
         e.preventDefault();
         this.props.logoutAndRedirect();
         this.setState({
-            open: false,
+            open: false
         });
     }
 
     render() {
+        const { classes } = this.props;
+        const drawer = (
+            <Drawer
+                variant="permanent"
+                classes={{
+                    paper: classes.drawerPaper
+                }}
+                anchor={"left"}
+            >
+                <div className={classes.toolbar} />
+                <Divider />
+                <div> Home </div>
+                <Divider />
+                <div> Editor</div>
+            </Drawer>
+        );
         return (
-            <header>
-                <LeftNav open={this.state.open} 
-                containerClassName='sidebar'>
-                    {
-                        !this.props.isAuthenticated ?
-                            <div>
-                                <MenuItem onClick={() => this.dispatchNewRoute('/home')}>
-                                    Home
-                                </MenuItem>
-                                <MenuItem onClick={() => this.dispatchNewRoute('/login')}>
-                                    Login
-                                </MenuItem>
-                                <MenuItem onClick={() => this.dispatchNewRoute('/register')}>
-                                    Register
-                                </MenuItem>
-                            </div>
-                            :
-                            <div>
-                                <MenuItem onClick={() => this.dispatchNewRoute('/analytics')}>
-                                    Analytics
-                                </MenuItem>
-                                <Divider />
-
-                                <MenuItem onClick={(e) => this.logout(e)}>
-                                    Logout
-                                </MenuItem>
-                            </div>
-                    }
-                </LeftNav>
+            <div className={classes.root}>
                 <AppBar
-                  title="Keras Model Builder"
-                  onLeftIconButtonTouchTap={() => this.toggleNav()}
-                  iconElementRight={
-                      <FlatButton label="Home" onClick={() => this.dispatchNewRoute('/')} />
-                    }
-                />
-            </header>
-
+                    position="absolute"
+                    className={classNames(
+                        classes.appBar,
+                        classes[`appBar-left`]
+                    )}
+                >
+                    <Toolbar>
+                        <Typography variant="h4" color="inherit" noWrap>
+                            Permanent drawer
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+                {drawer}
+            </div>
         );
     }
 }
 
-Header.propTypes = {
-    logoutAndRedirect: React.PropTypes.func,
-    isAuthenticated: React.PropTypes.bool,
-};
+export default withStyles(styles)(Header);

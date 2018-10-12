@@ -1,33 +1,28 @@
-import React from 'react';
+import React from "react";
 
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 /* application components */
-import { Header } from '../../components/Header';
-import { Footer } from '../../components/Footer';
+import Header from "../../components/Header";
 
 /* global styles for app */
-import './styles/app.scss';
+import "./styles/app.scss";
 
-class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
-    static propTypes = {
-        children: React.PropTypes.node,
-    };
+class App extends React.Component {
+    // eslint-disable-line react/prefer-stateless-function
 
     render() {
         return (
-            <MuiThemeProvider muiTheme={getMuiTheme()}>
+            <CssBaseline>
                 <section>
-                    <Header />
-                    <div
-                      className="container"
-                      style={{ marginTop: 10, paddingBottom: 250 }}
-                    >
-                        {this.props.children}
+                    <div className="app-frame">
+                        <Header />
+                        <div className="container content">
+                            {this.props.children}
+                        </div>
                     </div>
                 </section>
-            </MuiThemeProvider>
+            </CssBaseline>
         );
     }
 }

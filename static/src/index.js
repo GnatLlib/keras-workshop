@@ -1,18 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { Router, Redirect, browserHistory } from 'react-router';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import { syncHistoryWithStore } from 'react-router-redux';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { Router, Redirect, browserHistory } from "react-router";
+import { syncHistoryWithStore } from "react-router-redux";
+import { createBrowserHistory } from "history";
+import configureStore from "./store/configureStore";
+import routes from "./routes";
+import "./style.scss";
+import { fetchProtectedData } from "./actions/data";
 
-import configureStore from './store/configureStore';
-import routes from './routes';
-import './style.scss';
+require("bootstrap-webpack");
 
-require('expose?$!expose?jQuery!jquery');
-require('bootstrap-webpack');
-
-injectTapEventPlugin();
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
@@ -23,5 +21,5 @@ ReactDOM.render(
             {routes}
         </Router>
     </Provider>,
-    document.getElementById('root')
+    document.getElementById("root")
 );

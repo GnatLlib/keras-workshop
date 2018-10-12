@@ -11,3 +11,17 @@
   }
 
 }
+
+.app-frame {
+  height: '100%';
+  z-index: 1;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.content{
+  flex-grow: 1;
+  margin-top: 64px;
+}
