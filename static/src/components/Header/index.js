@@ -13,10 +13,11 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
+import Sidebar from "./Sidebar";
 
 import * as actionCreators from "../../actions/auth";
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 function mapStateToProps(state) {
     return {
         token: state.auth.token,
@@ -56,10 +57,10 @@ const styles = theme => ({
         width: drawerWidth
     },
     toolbar: theme.mixins.toolbar,
-    content: {
-        flexGrow: 1,
-        backgroundColor: theme.palette.background.default,
-        padding: theme.spacing.unit * 3
+    sidebarHeader: {
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "flex-start"
     }
 });
 
@@ -106,11 +107,15 @@ export class Header extends Component {
                 }}
                 anchor={"left"}
             >
-                <div className={classes.toolbar} />
+                <Toolbar className={classes.sidebarHeader}>
+                    <Typography variant="h6" color="inherit">
+                        Keras Workshop
+                    </Typography>
+
+                    <Typography variant="body2">v 1.0</Typography>
+                </Toolbar>
                 <Divider />
-                <div> Home </div>
-                <Divider />
-                <div> Editor</div>
+                <Sidebar />
             </Drawer>
         );
         return (
@@ -123,8 +128,8 @@ export class Header extends Component {
                     )}
                 >
                     <Toolbar>
-                        <Typography variant="h4" color="inherit" noWrap>
-                            Permanent drawer
+                        <Typography variant="h6" color="inherit" noWrap>
+                            Model Builder
                         </Typography>
                     </Toolbar>
                 </AppBar>

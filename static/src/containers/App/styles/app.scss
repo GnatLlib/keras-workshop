@@ -3,11 +3,13 @@
 @import 'typography';
 @import 'links';
 
+html {
+  font-size: 16 !important;
+}
 :global(body) {
   position: relative;
   font-family: 'Roboto', sans-serif !important;
   h1, h2, h3, h4 {
     font-weight: 300;
   }
-
 }
