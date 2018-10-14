@@ -53,7 +53,8 @@ export default class ModelContainer extends Component {
                     to={"layer-card-" + String(index + 1)}
                     fromAnchor="right"
                     toAnchor="left"
-                    borderWidth={8}
+                    borderWidth={2}
+                    borderStyle="dashed"
                     borderColor="darkgray"
                     zIndex={-1}
                     delay={true}
@@ -73,10 +74,11 @@ export default class ModelContainer extends Component {
                     className="layout"
                     cols={layout.length}
                     rowHeight={30}
-                    width={layout.length * 250}
+                    width={layout.length * 280}
                     layout={layout}
                     compactType="horizontal"
                     maxRows={1}
+                    margin={[20, 20]}
                 >
                     {this.renderLayerCards(model.config)}
                 </ReactGridLayout>

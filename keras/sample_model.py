@@ -5,6 +5,9 @@ import keras as keras
 
 model = Sequential()
 model.add(Dense(units=64, activation='relu', input_dim=100))
+model.add(Dense(units=64, activation='tanh', ))
+model.add(Dense(units=32, activation='sigmoid', ))
+model.add(Dense(units=16, activation='linear', ))
 model.add(Dense(units=10, activation='softmax'))
 
 model.compile(loss=keras.losses.categorical_crossentropy,
