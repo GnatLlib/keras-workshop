@@ -10,10 +10,10 @@ const Sidebar = props => {
     return (
         <List component="nav">
             <ListItem button>
-                <ListItemText primary="Trash" />
+                <ListItemText primary="Model Builder" />
             </ListItem>
             <ListItem button>
-                <ListItemText primary="Spam" />
+                <ListItemText primary="Training" />
             </ListItem>
         </List>
     );

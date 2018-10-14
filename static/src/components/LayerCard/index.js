@@ -4,15 +4,22 @@ import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardActions from "@material-ui/core/CardActions";
 import TextField from "@material-ui/core/TextField";
+import { withStyles } from "@material-ui/core/styles";
 
-export const LayerCard = props => {
+const styles = theme => ({
+    cardFrame: {
+        height: "100%"
+    }
+});
+
+const LayerCard = props => {
     const {
         class_name,
         config: { activation, activity_regularizer, dtype, name, units }
     } = props;
 
     return (
-        <Card>
+        <Card className={props.classes.cardFrame}>
             <CardHeader>
                 <TextField
                     id="layer-name"
@@ -33,3 +40,5 @@ export const LayerCard = props => {
         </Card>
     );
 };
+
+export default withStyles(styles)(LayerCard);
