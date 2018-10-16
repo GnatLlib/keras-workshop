@@ -22,6 +22,21 @@ const mapDispatchToProps = dispatch => {
     mapDispatchToProps
 )
 export default class ModelContainer extends Component {
+    constructor(props) {
+        super(props);
+        console.log(props);
+
+        if (props.model) {
+            const model = JSON.parse(this.props.model.model);
+            this.cardRefs = model.config.map(layer => {
+                return React.createRef();
+            });
+        }
+    }
+
+    componentDidMount() {
+        console.log(this.cardRefs);
+    }
     generateLayout = layers => {
         return layers.map((layer, index) => {
             return {
@@ -38,7 +53,11 @@ export default class ModelContainer extends Component {
     renderLayerCards = layers => {
         return layers.map((layer, index) => {
             return (
-                <div key={index} className={"layer-card-" + String(index)}>
+                <div
+                    key={index}
+                    className={"layer-card-" + String(index)}
+                    ref={this.cardRefs[index]}
+                >
                     <LayerCard {...layer} />
                 </div>
             );
@@ -49,6 +68,7 @@ export default class ModelContainer extends Component {
         return layers.map((layer, index) => {
             return (
                 <LineTo
+                    key={index}
                     from={"layer-card-" + String(index)}
                     to={"layer-card-" + String(index + 1)}
                     fromAnchor="right"
@@ -64,10 +84,8 @@ export default class ModelContainer extends Component {
     };
     render() {
         const model = JSON.parse(this.props.model.model);
-        console.log(model);
         // layout is an array of objects, see the demo for more complete usage
         const layout = this.generateLayout(model.config);
-        console.log(layout.length);
         return (
             <div className="model-grid-container">
                 <ReactGridLayout
@@ -82,7 +100,6 @@ export default class ModelContainer extends Component {
                 >
                     {this.renderLayerCards(model.config)}
                 </ReactGridLayout>
-                {this.renderCardConnectors(model.config)}
             </div>
         );
     }

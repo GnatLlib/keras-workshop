@@ -5,8 +5,6 @@ import AddIcon from "@material-ui/icons/Add";
 import ModelContainer from "../../containers/ModelContainer";
 
 export const Home = props => {
-    console.log(props);
-
     const onDrop = files => {
         const reader = new FileReader();
         reader.onload = () => {
