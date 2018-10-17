@@ -24,7 +24,6 @@ const mapDispatchToProps = dispatch => {
 export default class ModelContainer extends Component {
     constructor(props) {
         super(props);
-        console.log(props);
 
         if (props.model) {
             const model = JSON.parse(this.props.model.model);
@@ -34,9 +33,7 @@ export default class ModelContainer extends Component {
         }
     }
 
-    componentDidMount() {
-        console.log(this.cardRefs);
-    }
+    componentDidMount() {}
     generateLayout = layers => {
         return layers.map((layer, index) => {
             return {
@@ -97,6 +94,7 @@ export default class ModelContainer extends Component {
                     compactType="horizontal"
                     maxRows={1}
                     margin={[20, 20]}
+                    draggableCancel=".drag-cancel"
                 >
                     {this.renderLayerCards(model.config)}
                 </ReactGridLayout>
