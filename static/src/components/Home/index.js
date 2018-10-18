@@ -38,7 +38,7 @@ export const Home = props => {
     };
     return (
         <section>
-            {props.model.model ? <ModelContainer /> : uploadModel()}
+            {props.model.layers ? <ModelContainer /> : uploadModel()}
         </section>
     );
 };

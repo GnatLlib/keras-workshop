@@ -42,7 +42,7 @@ const styles = theme => ({
     },
     addIcon: {
         position: "absolute",
-        top: "45%",
+        top: "45.5%",
         right: -20,
         transition: "0.2s"
     },
@@ -77,7 +77,6 @@ class LayerCard extends Component {
     constructor(props) {
         super(props);
 
-        console.log(props);
         this.state = {
             config: props.config,
             hover: false
@@ -85,7 +84,6 @@ class LayerCard extends Component {
     }
 
     handleChange = name => event => {
-        console.log(event.target.value);
         this.setState({
             config: {
                 ...this.state.config,
@@ -170,7 +168,14 @@ class LayerCard extends Component {
                     className={classes.cardActions}
                     disableActionSpacing
                 >
-                    <IconButton>
+                    <IconButton
+                        onClick={e => {
+                            this.props.onDelete({
+                                id: this.props.id,
+                                pos: this.props.position
+                            });
+                        }}
+                    >
                         <Icon>delete</Icon>
                     </IconButton>
                 </CardActions>

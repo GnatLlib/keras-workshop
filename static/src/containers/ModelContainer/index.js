@@ -8,6 +8,7 @@ import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
 import { withStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
+import * as actionCreators from "../../actions/model";
 
 const ReactGridLayout = RGL;
 
@@ -18,7 +19,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-    return {};
+    return bindActionCreators(actionCreators, dispatch);
 };
 
 const styles = theme => ({
@@ -37,8 +38,8 @@ class ModelContainer extends Component {
         super(props);
 
         if (props.model) {
-            const model = JSON.parse(this.props.model.model);
-            this.cardRefs = model.config.map(layer => {
+            const layers = props.model.layers;
+            this.cardRefs = layers.map(layer => {
                 return React.createRef();
             });
         }
@@ -48,8 +49,8 @@ class ModelContainer extends Component {
     generateLayout = layers => {
         return layers.map((layer, index) => {
             return {
-                i: String(index),
-                x: index * 2,
+                i: String(layer.id),
+                x: layer.position * 2,
                 y: 0,
                 w: 1,
                 h: 8,
@@ -62,11 +63,14 @@ class ModelContainer extends Component {
         return layers.map((layer, index) => {
             return (
                 <div
-                    key={index}
-                    className={"layer-card-" + String(index)}
+                    key={layer.id}
+                    className={"layer-card-" + String(layer.id)}
                     ref={this.cardRefs[index]}
                 >
-                    <LayerCard {...layer} />
+                    <LayerCard
+                        {...layer}
+                        onDelete={this.props.deleteModelLayer}
+                    />
                 </div>
             );
         });
@@ -91,10 +95,10 @@ class ModelContainer extends Component {
         });
     };
     render() {
-        const model = JSON.parse(this.props.model.model);
+        const layers = this.props.model.layers;
         const { classes } = this.props;
         // layout is an array of objects, see the demo for more complete usage
-        const layout = this.generateLayout(model.config);
+        const layout = this.generateLayout(layers);
         return (
             <div className="model-grid-container">
                 <div
@@ -102,7 +106,14 @@ class ModelContainer extends Component {
                         [classes.addIcon]: true
                     })}
                 >
-                    <IconButton>
+                    <IconButton
+                        onClick={e => {
+                            this.props.addModelLayer({
+                                pos: 0,
+                                config: layers[0].config
+                            });
+                        }}
+                    >
                         <Icon>add_circle</Icon>
                     </IconButton>
                 </div>
@@ -117,7 +128,7 @@ class ModelContainer extends Component {
                     margin={[20, 20]}
                     draggableCancel=".drag-cancel"
                 >
-                    {this.renderLayerCards(model.config)}
+                    {this.renderLayerCards(layers)}
                 </ReactGridLayout>
             </div>
         );
