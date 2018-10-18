@@ -8,10 +8,18 @@ import { withStyles } from "@material-ui/core/styles";
 import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
 import MenuItem from "@material-ui/core/MenuItem";
+import classNames from "classnames";
 
 const styles = theme => ({
     cardFrame: {
-        height: "100%"
+        overflow: "visible",
+        height: "100%",
+        "&:hover": {
+            transform: "translateY(-5px)",
+            boxShadow:
+                "1px 3px 3px 0px rgba(0, 0, 0, 0.2), 1px 3px 1px 0px rgba(0, 0, 0, 0.14), 1px 2px 3px -1px rgba(0, 0, 0, 0.12)"
+        },
+        transition: "0.2s"
     },
     cardHeader: {
         display: "flex",
@@ -31,6 +39,15 @@ const styles = theme => ({
         position: "absolute",
         top: 0,
         right: 10
+    },
+    addIcon: {
+        position: "absolute",
+        top: "45%",
+        right: -20,
+        transition: "0.2s"
+    },
+    hidden: {
+        opacity: 0
     }
 });
 
@@ -62,7 +79,8 @@ class LayerCard extends Component {
 
         console.log(props);
         this.state = {
-            config: props.config
+            config: props.config,
+            hover: false
         };
     }
 
@@ -82,9 +100,31 @@ class LayerCard extends Component {
             config: { activation, activity_regularizer, dtype, name, units }
         } = this.state;
 
-        console.log(this.state);
         return (
-            <Card className={classes.cardFrame}>
+            <Card
+                className={classes.cardFrame}
+                onMouseOver={e => {
+                    this.setState({
+                        hover: true
+                    });
+                }}
+                onMouseLeave={e => {
+                    this.setState({
+                        hover: false
+                    });
+                }}
+            >
+                <div
+                    className={classNames({
+                        [classes.addIcon]: true,
+                        [classes.hidden]: !this.state.hover
+                    })}
+                >
+                    <IconButton>
+                        <Icon>add_circle</Icon>
+                    </IconButton>
+                </div>
+
                 <div className={classes.cardHeader}>
                     <TextField
                         className="drag-cancel"

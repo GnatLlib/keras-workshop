@@ -4,6 +4,10 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import LayerCard from "../../components/LayerCard";
 import LineTo from "react-lineto";
+import Icon from "@material-ui/core/Icon";
+import IconButton from "@material-ui/core/IconButton";
+import { withStyles } from "@material-ui/core/styles";
+import classNames from "classnames";
 
 const ReactGridLayout = RGL;
 
@@ -17,11 +21,18 @@ const mapDispatchToProps = dispatch => {
     return {};
 };
 
+const styles = theme => ({
+    addIcon: {
+        zIndex: 2,
+        position: "relative",
+        transition: "0.2s"
+    }
+});
 @connect(
     mapStateToProps,
     mapDispatchToProps
 )
-export default class ModelContainer extends Component {
+class ModelContainer extends Component {
     constructor(props) {
         super(props);
 
@@ -81,10 +92,20 @@ export default class ModelContainer extends Component {
     };
     render() {
         const model = JSON.parse(this.props.model.model);
+        const { classes } = this.props;
         // layout is an array of objects, see the demo for more complete usage
         const layout = this.generateLayout(model.config);
         return (
             <div className="model-grid-container">
+                <div
+                    className={classNames({
+                        [classes.addIcon]: true
+                    })}
+                >
+                    <IconButton>
+                        <Icon>add_circle</Icon>
+                    </IconButton>
+                </div>
                 <ReactGridLayout
                     className="layout"
                     cols={layout.length}
@@ -102,3 +123,5 @@ export default class ModelContainer extends Component {
         );
     }
 }
+
+export default withStyles(styles)(ModelContainer);

@@ -112,7 +112,7 @@ export class Header extends Component {
                         Keras Workshop
                     </Typography>
 
-                    <Typography variant="body2">v 1.0</Typography>
+                    <Typography variant="body2">v 1.1</Typography>
                 </Toolbar>
                 <Divider />
                 <Sidebar />
