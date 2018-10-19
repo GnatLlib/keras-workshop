@@ -118,7 +118,16 @@ class LayerCard extends Component {
                         [classes.hidden]: !this.state.hover
                     })}
                 >
-                    <IconButton>
+                    <IconButton
+                        onClick={e => {
+                            console.log(this.props.position);
+                            console.log(this.props.config);
+                            this.props.onAdd({
+                                config: this.props.config,
+                                pos: this.props.position + 1
+                            });
+                        }}
+                    >
                         <Icon>add_circle</Icon>
                     </IconButton>
                 </div>

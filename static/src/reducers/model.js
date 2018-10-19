@@ -51,7 +51,10 @@ export default createReducer(initialState, {
                 {
                     id: newID,
                     position: payload.pos,
-                    config: payload.config
+                    config: {
+                        ...payload.config,
+                        name: newID
+                    }
                 }
             ]
         });

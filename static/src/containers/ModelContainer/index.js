@@ -50,7 +50,7 @@ class ModelContainer extends Component {
         return layers.map((layer, index) => {
             return {
                 i: String(layer.id),
-                x: layer.position * 2,
+                x: layer.position,
                 y: 0,
                 w: 1,
                 h: 8,
@@ -70,6 +70,7 @@ class ModelContainer extends Component {
                     <LayerCard
                         {...layer}
                         onDelete={this.props.deleteModelLayer}
+                        onAdd={this.props.addModelLayer}
                     />
                 </div>
             );
@@ -99,6 +100,7 @@ class ModelContainer extends Component {
         const { classes } = this.props;
         // layout is an array of objects, see the demo for more complete usage
         const layout = this.generateLayout(layers);
+        console.log(layout);
         return (
             <div className="model-grid-container">
                 <div
