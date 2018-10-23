@@ -9,6 +9,7 @@ import IconButton from "@material-ui/core/IconButton";
 import { withStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
 import * as actionCreators from "../../actions/model";
+import { DEFAULT_LAYER_CONFIG } from "../../constants/index";
 
 const ReactGridLayout = RGL;
 
@@ -100,7 +101,6 @@ class ModelContainer extends Component {
         const { classes } = this.props;
         // layout is an array of objects, see the demo for more complete usage
         const layout = this.generateLayout(layers);
-        console.log(layout);
         return (
             <div className="model-grid-container">
                 <div
@@ -112,7 +112,7 @@ class ModelContainer extends Component {
                         onClick={e => {
                             this.props.addModelLayer({
                                 pos: 0,
-                                config: layers[0].config
+                                config: DEFAULT_LAYER_CONFIG
                             });
                         }}
                     >

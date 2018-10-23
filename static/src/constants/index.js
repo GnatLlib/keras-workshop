@@ -14,3 +14,10 @@ export const UPLOAD_MODEL = "UPLOAD_MODEL";
 export const UPDATE_MODEL_LAYOUT = "UPDATE_MODEL_LAYOUT";
 export const ADD_MODEL_LAYER = "ADD_MODEL_LAYER";
 export const DELETE_MODEL_LAYER = "DELETE_MODEL_LAYER";
+
+export const DEFAULT_LAYER_CONFIG = {
+    activation: "relu",
+    name: null,
+    trainable: true,
+    units: 0
+};
