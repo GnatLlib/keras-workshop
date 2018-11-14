@@ -9,6 +9,9 @@ import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
 import MenuItem from "@material-ui/core/MenuItem";
 import classNames from "classnames";
+import Divider from "@material-ui/core/Divider";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 const styles = theme => ({
     cardFrame: {
@@ -48,6 +51,9 @@ const styles = theme => ({
     },
     hidden: {
         opacity: 0
+    },
+    textField: {
+        width: "100%"
     }
 });
 
@@ -71,6 +77,30 @@ const activations = [
     {
         value: "linear",
         label: "Linear"
+    },
+    {
+        value: "elu",
+        label: "eLu"
+    },
+    {
+        value: "selu",
+        label: "SeLu"
+    },
+    {
+        value: "softplus",
+        label: "Softplus"
+    },
+    {
+        value: "hard_sigmoid",
+        label: "Hard Sigmoid"
+    },
+    {
+        value: "softsign",
+        label: "SoftSign"
+    },
+    {
+        value: "exponential",
+        label: "Exponential"
     }
 ];
 class LayerCard extends Component {
@@ -84,6 +114,7 @@ class LayerCard extends Component {
     }
 
     handleChange = name => event => {
+        console.log(event.target.value);
         this.setState({
             config: {
                 ...this.state.config,
@@ -91,11 +122,27 @@ class LayerCard extends Component {
             }
         });
     };
+
+    handleCheckboxChange = name => event => {
+        this.setState({
+            config: {
+                ...this.state.config,
+                [name]: event.target.checked
+            }
+        });
+    };
     render() {
         const { classes, class_name } = this.props;
 
         const {
-            config: { activation, activity_regularizer, dtype, name, units }
+            config: {
+                activation,
+                activity_regularizer,
+                dtype,
+                name,
+                units,
+                use_bias
+            }
         } = this.state;
 
         return (
@@ -134,7 +181,7 @@ class LayerCard extends Component {
 
                 <div className={classes.cardHeader}>
                     <TextField
-                        className="drag-cancel"
+                        className={classNames("drag-cancel", classes.textField)}
                         onClick={e => {
                             e.stopPropagation();
                         }}
@@ -146,12 +193,24 @@ class LayerCard extends Component {
                         variant="outlined"
                     />
                 </div>
+                <Divider />
                 <CardContent className={classes.cardContent}>
+                    <TextField
+                        id="select-units"
+                        label="Units"
+                        value={units}
+                        onChange={this.handleChange("units")}
+                        type="number"
+                        className={classNames("drag-cancel", classes.textField)}
+                        margin="dense"
+                        variant="outlined"
+                        helperText="Choose output units"
+                    />
                     <TextField
                         id="select-activation"
                         select
                         label="Activation"
-                        className="drag-cancel"
+                        className={classNames("drag-cancel", classes.textField)}
                         value={activation}
                         onChange={this.handleChange("activation")}
                         SelectProps={{
@@ -169,9 +228,16 @@ class LayerCard extends Component {
                             </MenuItem>
                         ))}
                     </TextField>
-                    <div> {activity_regularizer} </div>
-                    <div> {dtype} </div>
-                    <div> {units} </div>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={use_bias}
+                                onChange={this.handleCheckboxChange("use_bias")}
+                                color="primary"
+                            />
+                        }
+                        label="Use Bias"
+                    />
                 </CardContent>
                 <CardActions
                     className={classes.cardActions}
